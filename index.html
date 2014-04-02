@@ -114,7 +114,7 @@
 			underbust = Math.ceil(underbust);
 			if (underbust % 2 === 0) {return underbust} else {
 				//round down odd underbust measurement to the nearest band
-				return (underbust-1);
+				return (underbust+1);
 			};			
 		};
 		if (unit === "cm") {
