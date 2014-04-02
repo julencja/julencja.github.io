@@ -157,7 +157,7 @@
 
 	//find a sister size which feels loser
 	//assert typeOf(braSize) == array
-	function sisterLose (braSize) {
+	function sisterLoose (braSize) {
 		var sisterBand = braSize[0]+2;
 		var cupSize = braSize[1];
 		var cupIndex = cups.indexOf(cupSize)-1;
@@ -180,28 +180,36 @@
 	$( document ).ready(function() {
 	//Calculate band size from input    	 		
     	$('#calculateSize').click(function(){
-    		under = parseInt($('#underbust').val()); 
-    		over = parseInt($('#overbust').val());
+    		var unit = "in";
+    		var under = parseInt($('#underbust').val()); 
+    		var over = parseInt($('#overbust').val());
     		//pass unit from checkbox
     		if ($('#metric').is(':checked')) {
+    			var unit = "cm";
     			var yourSize = calculateSize(under,over,"cm");	
     		} 
     		else{
     			var yourSize = calculateSize(under,over,"in");	
     		};
     		var snugSisterSize = sisterSnug(yourSize);
-    		var loseSisterSize = sisterLose(yourSize);
-    		$('#size0').text(yourSize[0]+yourSize[1]);	
-    		$('#size1').text(snugSisterSize[0]+snugSisterSize[1]);
-    		$('#size2').text(loseSisterSize[0]+loseSisterSize[1]);
+    		var looseSisterSize = sisterLoose(yourSize);
+    		var row = $('<tr></tr>');
+    		row.append("<td>"+unit+"</td><td>"+under+"</td><td>"+over+"</td><td>"+yourSize[0]+yourSize[1]+"</td><td>"+snugSisterSize[0]+snugSisterSize[1]+"</td><td>"+looseSisterSize[0]+looseSisterSize[1]+"</td>");
+    		$('#results').append(row);
     	}); 		
 	});
 
 	</script>
+	<style type="text/css">
+	table td{
+		border: solid 1px #bbb;
+		padding: 0 1em;
+	}
+	</style>
 </head>
 <body>
-	<header>Size calculator</header>
-	Show in cm: <input type="checkbox" value="1" id="metric">
+	<header>Size calculator (default in inches)</header>
+	<small>Check this box to calculate your size for metric measurements: <input type="checkbox" value="1" id="metric"></small>
 	<br>
 	Your underbust:	<input type="number" step="1" value="31" id="underbust"/>
 	<br>
@@ -209,8 +217,17 @@
 	<br>
 	<button id="calculateSize">Check your size</button>
 	<br>
-	Your size is: <span id="size0"></span><br>
-	Your SNUG sister size is: <span id="size1"></span>
-	Your LOSE sister size is: <span id="size2"></span>
+	<table id="results">
+		<thead>
+			<td>Unit</td>
+			<td>Underbust</td>
+			<td>Overbust</td>
+			<td>Default size</td>
+			<td>Snug sister</td>
+			<td>Loose sister</td>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
 </body>
 </html>
