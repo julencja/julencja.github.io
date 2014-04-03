@@ -46,7 +46,7 @@ header img {
 	display: block;
 }
 input[type=radio] {
-	display: ;
+	display: none;
 }
 label {
 	display: inline-block;

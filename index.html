@@ -4,10 +4,7 @@
 	<meta charset="utf-8" />
 	<title>Size calculator</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<<<<<<< HEAD
-=======
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
->>>>>>> 05a79509ed709d0ad3ad5d47262c850efc1aa48d
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 	// braSizes holds 
@@ -296,14 +293,25 @@
 			overWidget.slider('value',current);
 		});
 	
-	//Switch UI units when in/cm selected
-	$("input[name='units']").change(function(){
-		if (whatUnit() === "cm") {switchUI("in","cm")};
-		if (whatUnit() === "in") {switchUI("cm","in")};
+
+	//Switch radio buttons name="units" when labels clicked
+	$("label[for='in']").click(function(){
+		//remove checked from "cm"
+		$("input[value='cm']").prop('checked', false);
+		//check "in"
+		$("input[value='in'").prop('checked',true);
+		//switch UI
+		switchUI("cm","in");
+	});
+	$("label[for='cm']").click(function(){
+		//remove checked from "in"
+		$("input[value='in']").prop('checked', false);
+		//check "in"
+		$("input[value='cm'").prop('checked',true);
+		//switch UI
+		switchUI("in","cm");
 	});
 	
-
-	//check unit checkbox when clicked on label
 	//make size output in text format 
 	});
 
