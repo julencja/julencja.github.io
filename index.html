@@ -12,7 +12,7 @@
 					{
 						bandEU: 55,
 						bandUS: 22,
-						cupStart: 1,
+						cupStart: 5,
 						cups: 	['DD', 'DDD', 'G', 'H', 'HH', 'J', 'K', 'L', 'M', 'N', 'O']
 					},
 					{
@@ -84,7 +84,7 @@
 					{
 						bandEU: 115,
 						bandUS: 46,
-						cupStart: 10,
+						cupStop: 5,
 						cups: 	['B', 'C', 'D', 'DD']
 					},
 				];
@@ -177,26 +177,61 @@
 		if (sizeAvailable(sisterBand,sisterCup)) {return([sisterBand,sisterCup])} else{return "noSister"};
 	};
 
+	//determine unit
+	function whatUnit(){
+		if ($('#metric').is(':checked')) {return "cm"} else { return "in"};
+	};
+
 	$( document ).ready(function() {
 	//Calculate band size from input    	 		
     	$('#calculateSize').click(function(){
-    		var unit = "in";
+    		//pass unit from checkbox
     		var under = parseInt($('#underbust').val()); 
     		var over = parseInt($('#overbust').val());
-    		//pass unit from checkbox
-    		if ($('#metric').is(':checked')) {
-    			var unit = "cm";
-    			var yourSize = calculateSize(under,over,"cm");	
-    		} 
-    		else{
-    			var yourSize = calculateSize(under,over,"in");	
-    		};
+    		var unit = whatUnit();
+    		var yourSize = calculateSize(under,over,unit);
     		var snugSisterSize = sisterSnug(yourSize);
     		var looseSisterSize = sisterLoose(yourSize);
     		var row = $('<tr></tr>');
     		row.append("<td>"+unit+"</td><td>"+under+"</td><td>"+over+"</td><td>"+yourSize[0]+yourSize[1]+"</td><td>"+snugSisterSize[0]+snugSisterSize[1]+"</td><td>"+looseSisterSize[0]+looseSisterSize[1]+"</td>");
-    		$('#results').append(row);
+    		$('#results').prepend(row);
     	}); 		
+	//Initialize sliders
+		//underbust
+	    $( "#underbustSlider" ).slider({
+	      	value: $("#underbust").val(),
+	      	step: .5,
+	      	//Deafult min and max in inches
+	      	min: braSizes[0].bandUS-1,
+	      	max: braSizes[braSizes.length-1].bandUS+.5,
+	      	slide: function(event,ui){
+	      		$("#underbust").val(ui.value);
+  			},
+    	});
+		//overbust
+		$( "#overbustSlider" ).slider({
+	      	value: $("#overbust").val(),
+	      	step: .5,
+	      	//Deafult min and max in inches
+	      	min: braSizes[0].bandUS + braSizes[0].cupStart,
+	      	max: braSizes[braSizes.length-1].bandUS + braSizes[braSizes.length-1].cupStop,
+	      	slide: function(event,ui){
+	      		$("#overbust").val(ui.value);
+	      	},
+    	});
+	//Set slider values with input fields
+		$('#underbust').change(function(){
+			var current = $(this).val();
+			$('#underbustSlider').slider('value',current);
+		});		
+		$('#overbust').change(function(){
+			var current = $(this).val();
+			$('#overbustSlider').slider('value',current);
+		})
+
+	//Change slider values when units change
+
+
 	});
 
 	</script>
@@ -208,11 +243,14 @@
 	</style>
 </head>
 <body>
-	<header>Size calculator (default in inches)</header>
-	<small>Check this box to calculate your size for metric measurements: <input type="checkbox" value="1" id="metric"></small>
+	<header>Wellfitting Bra Size Calculator</header>
+	<input type="radio" name="units" value="in" checked>in<br>
+	<input type="radio" name="units" value="cm" id="metric">cm<br>
 	<br>
+	<div id="underbustSlider" class="slider"></div>
 	Your underbust:	<input type="number" step="1" value="31" id="underbust"/>
 	<br>
+	<div id="overbustSlider" class="slider"></div>
 	Your overbust: <input type="number" step="1" value="41" id="overbust" />
 	<br>
 	<button id="calculateSize">Check your size</button>
