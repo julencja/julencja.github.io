@@ -247,6 +247,10 @@
     		var yourSize = calculateSize(under,over,unit);
     		var snugSisterSize = sisterSnug(yourSize);
     		var looseSisterSize = sisterLoose(yourSize);
+    		//Display Snug and Comfy recommendations
+    		$("#comfy").text(yourSize[0]+yourSize[1]);
+    		$("#snug").text(snugSisterSize[0]+snugSisterSize[1]);
+    		//Add results to test Table
     		var row = $('<tr></tr>');
     		row.append("<td>"+unit+"</td><td>"+under+"</td><td>"+over+"</td><td>"+yourSize[0]+yourSize[1]+"</td><td>"+snugSisterSize[0]+snugSisterSize[1]+"</td><td>"+looseSisterSize[0]+looseSisterSize[1]+"</td>");
     		$('#testResults').prepend(row);
@@ -277,11 +281,11 @@
 	      		$("#overbust").val(ui.value);
 	      	},
     	});
-	//Set min and max slider labels
-	$("#underbustSliderMin").text(underWidget.slider("option","min"));	
-	$("#underbustSliderMax").text(underWidget.slider("option","max"));	
-	$("#overbustSliderMin").text(overWidget.slider("option","min"));	
-	$("#overbustSliderMax").text(overWidget.slider("option","max"));	
+		//Set min and max slider labels
+		$("#underbustSliderMin").text(underWidget.slider("option","min"));	
+		$("#underbustSliderMax").text(underWidget.slider("option","max"));	
+		$("#overbustSliderMin").text(overWidget.slider("option","min"));	
+		$("#overbustSliderMax").text(overWidget.slider("option","max"));	
 	
 	//Set slider values with input fields
 		$('#underbust').change(function(){
@@ -294,25 +298,25 @@
 		});
 	
 
-	//Switch radio buttons name="units" when labels clicked
-	$("label[for='in']").click(function(){
-		//remove checked from "cm"
-		$("input[value='cm']").prop('checked', false);
-		//check "in"
-		$("input[value='in'").prop('checked',true);
-		//switch UI
-		switchUI("cm","in");
-	});
-	$("label[for='cm']").click(function(){
-		//remove checked from "in"
-		$("input[value='in']").prop('checked', false);
-		//check "in"
-		$("input[value='cm'").prop('checked',true);
-		//switch UI
-		switchUI("in","cm");
-	});
-	
-	//make size output in text format 
+		//Switch radio buttons name="units" when labels clicked
+		$("label[for='in']").click(function(){
+			//remove checked from "cm"
+			$("input[value='cm']").prop('checked', false);
+			//check "in"
+			$("input[value='in'").prop('checked',true);
+			//switch UI
+			switchUI("cm","in");
+		});
+		$("label[for='cm']").click(function(){
+			//remove checked from "in"
+			$("input[value='in']").prop('checked', false);
+			//check "in"
+			$("input[value='cm'").prop('checked',true);
+			//switch UI
+			switchUI("in","cm");
+		});
+
+	//>>> End of document.ready()	
 	});
 
 	</script>
@@ -349,14 +353,16 @@
 			<button id="calculateSize">check your size</button>
 		</div>
 	<div id="result">
-		<h2>we recommend sizes: <span id="comfy" class="sizeSugestion">comfy</span> and <span id="snug" class="sizeSugestion">snug</span><h2>
+		<h2>we recommend sizes:<br> 
+			comfy: <span id="comfy" class="sizeSugestion">?</span> | snug: <span id="snug" class="sizeSugestion">?</span><h2>
 	</div>
+	<small>Test results table</small>
 	<table id="testResults">
 		<thead>
 			<td>Unit</td>
 			<td>Underbust</td>
 			<td>Overbust</td>
-			<td>Default size</td>
+			<td>Comfy size</td>
 			<td>Snug sister</td>
 			<td>Loose sister</td>
 		</thead>
