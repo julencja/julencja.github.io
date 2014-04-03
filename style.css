@@ -1,0 +1,152 @@
+
+body {
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-size: 10pt;
+	line-height: 1.5;
+	text-align: left;
+	margin: auto;
+	background-color: #fafafa;
+}
+h1 {
+	font-family: 'Playfair Display', Georgia, serif;
+	font-size: 200%;
+	font-weight: 900;
+	opacity: 0.6;
+}
+h2 {
+	font-size: 120%;
+	font-variant: small-caps;
+	font-weight: 700;
+	color: #000;
+	opacity: 0.6;
+}
+h3 {
+	font-weight: 400;
+}
+p {
+	font-family: 'Playfair Display', Georgia, small-caps;
+	color: #000;
+	opacity: 0.6;
+}
+header {
+	text-align: center;
+}
+header img {
+	width: 100px;
+	padding: 10px 0;
+}
+.wrapper {
+	width: 60%;
+	margin: auto;
+	background-color: #fff;
+	padding: 20px;
+}
+#units {
+	text-align: left;
+	display: block;
+}
+input[type=radio] {
+	display: ;
+}
+label {
+	display: inline-block;
+	cursor: pointer;
+    width: 25px;
+	height: 25px;
+	border: 2px solid #C9C9C9;
+	border-radius: 50%;
+	margin: 5px;
+	color: #C9C9C9;
+	text-align: center;
+	font-variant: small-caps; 
+}
+label:hover {
+	color: #28B1B7;
+	border: 2px solid #28B1B7;
+}
+input[type=radio]:checked + label {
+	color: #28B1B7;
+	border: 2px solid #28B1B7;
+}
+input[type=number] {
+	padding: 5px;
+	width: 100px;
+	margin: 0 20px;
+	border: 2px solid #C9C9C9;
+	box-shadow: none;
+	text-align: center;
+}
+input[type=number]:hover, input[type=number]:focus  {
+	border: 2px solid #28B1B7;
+}
+
+#overbust, #underbust {
+	margin: 20px;
+}
+#underbustSlider, #underbustSliderMin, #underbustSliderMax, 
+#overbustSlider, #overbustSliderMin, #overbustSliderMax {
+	display: inline-block;
+	margin: 0 10px;
+	font-size: 90%;
+	color: #C9C9C9;
+}
+.slider {
+	width: 80%;
+	text-align: center;
+	background-color: red;
+}
+.ui-slider {
+	background-color: #000;
+}
+button {
+	background-color: #28B1B7;
+	color: #fff;
+	padding: 10px;
+	border: none;
+	font-variant: small-caps;
+	font-size: 130%;
+	margin: 20px 0;
+}
+button:hover {
+	font-size: 130%;
+	opacity: 0.6;
+}
+button:active {
+	background-color: #28B1B7;
+}
+td {
+	text-align: center;
+	vertical-align: middle;
+	padding: 5px 10px;
+	margin: 0;	
+}
+thead {
+	color: #C9C9C9;
+}
+tr {
+	border-bottom: 1px solid #fafafa;
+}
+#button {
+	height: 60px;
+	text-align: center;
+}
+.measure {
+	border: 1px dotted #C9C9C9;
+	vertical-align: middle;
+	text-align: center;
+	margin-top: 20px;
+	padding: 20px;
+}
+#result {
+	border-top: 1px dotted #C9C9C9	;
+	text-align: center;
+	margin-top: 20px;	
+}
+#comfy {
+	color: #28B1B7;
+	font-size: 130%;
+	opacity: 1;	
+}
+#testResults {
+	margin: 2em 0;
+}
