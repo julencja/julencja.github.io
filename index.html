@@ -6,8 +6,8 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
-	<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
 	<script type="text/javascript">
 	// braSizes holds 
 	var braSizes = [
@@ -188,54 +188,38 @@
 	function switchUI(fromUnit,toUnit){
 		//switch from inches to centimeters
 		if (fromUnit === "in") {
-			var newUnder = Math.round($('#underbust').val()*2.54);
-			var newOver = Math.round($('#overbust').val()*2.54);
-			var newUnderMin = Math.round($('#underbustSlider').slider('option','min')*2.54);
-			var newOverMin = Math.round($('#overbustSlider').slider('option','min')*2.54);
-			var newUnderMax = Math.round($('#underbustSlider').slider('option','max')*2.54);
-			var newOverMax = Math.round($('#overbustSlider').slider('option','max')*2.54);
-			//convert input values to cm
-			$('#underbust').val(newUnder);
-			$('#overbust').val(newOver);
+			var newUnder = Math.round($('#underbustSlider').val()*2.54);
+			var newOver = Math.round($('#overbustSlider').val()*2.54);
+			var newUnderMin = Math.round($('#underbustSlider').attr('min')*2.54);
+			var newOverMin = Math.round($('#overbustSlider').attr('min')*2.54);
+			var newUnderMax = Math.round($('#underbustSlider').attr('max')*2.54);
+			var newOverMax = Math.round($('#overbustSlider').attr('max')*2.54);
+			//convert slider values to cm
+			$('#underbustSlider').val(newUnder);
+			$('#overbustSlider').val(newOver);
 			//convert slider min
-			$('#underbustSlider').slider('option', 'min',newUnderMin);
-			$('#overbustSlider').slider('option', 'min',newOverMin);
+			$('#underbustSlider').attr('min',newUnderMin);
+			$('#overbustSlider').attr('min',newOverMin);
 			//convert sider max
-			$('#underbustSlider').slider('option', 'max',newUnderMax);
-			$('#overbustSlider').slider('option', 'max',newOverMax);
-			//convert slider value
-			$('#underbustSlider').slider('value',newUnder);
-			$('#overbustSlider').slider('value',newOver);
-			//set slider labels
-			$("#underbustSliderMin").text($('#underbustSlider').slider("option","min"));	
-			$("#underbustSliderMax").text($('#underbustSlider').slider("option","max"));	
-			$("#overbustSliderMin").text($('#overbustSlider').slider("option","min"));	
-			$("#overbustSliderMax").text($('#overbustSlider').slider("option","max"));	
+			$('#underbustSlider').attr('max',newUnderMax);
+			$('#overbustSlider').attr('max',newOverMax);
 		};
 		if (fromUnit === "cm") {
-			var newUnder = Math.round($('#underbust').val()/2.54);
-			var newOver = Math.round($('#overbust').val()/2.54);
-			var newUnderMin = Math.round($('#underbustSlider').slider('option','min')/2.54);
-			var newOverMin = Math.round($('#overbustSlider').slider('option','min')/2.54);
-			var newUnderMax = Math.round($('#underbustSlider').slider('option','max')/2.54);
-			var newOverMax = Math.round($('#overbustSlider').slider('option','max')/2.54);
-			//convert input values to cm
-			$('#underbust').val(newUnder);
-			$('#overbust').val(newOver);
+			var newUnder = Math.round($('#underbustSlider').val()/2.54);
+			var newOver = Math.round($('#overbustSlider').val()/2.54);
+			var newUnderMin = Math.round($('#underbustSlider').attr('min')/2.54);
+			var newOverMin = Math.round($('#overbustSlider').attr('min')/2.54);
+			var newUnderMax = Math.round($('#underbustSlider').attr('max')/2.54);
+			var newOverMax = Math.round($('#overbustSlider').attr('max')/2.54);
+			//convert slider values to cm
+			$('#underbustSlider').val(newUnder);
+			$('#overbustSlider').val(newOver);
 			//convert slider min
-			$('#underbustSlider').slider('option', 'min',newUnderMin);
-			$('#overbustSlider').slider('option', 'min',newOverMin);
+			$('#underbustSlider').attr('min',newUnderMin);
+			$('#overbustSlider').attr('min',newOverMin);
 			//convert sider max
-			$('#underbustSlider').slider('option', 'max',newUnderMax);
-			$('#overbustSlider').slider('option', 'max',newOverMax);
-			//convert slider value
-			$('#underbustSlider').slider('value',newUnder);
-			$('#overbustSlider').slider('value',newOver);
-			//set slider labels
-			$("#underbustSliderMin").text($('#underbustSlider').slider("option","min"));	
-			$("#underbustSliderMax").text($('#underbustSlider').slider("option","max"));	
-			$("#overbustSliderMin").text($('#overbustSlider').slider("option","min"));	
-			$("#overbustSliderMax").text($('#overbustSlider').slider("option","max"));	
+			$('#underbustSlider').attr('max',newUnderMax);
+			$('#overbustSlider').attr('max',newOverMax);
 		};
 	};
 
@@ -243,8 +227,8 @@
 	//Calculate size from input    	 		
     	$('#calculateSize').click(function(){
     		//pass unit from checkbox
-    		var under = parseInt($('#underbust').val()); 
-    		var over = parseInt($('#overbust').val());
+    		var under = parseInt($('#underbustSlider').val()); 
+    		var over = parseInt($('#overbustSlider').val());
     		var unit = whatUnit();
     		var yourSize = calculateSize(under,over,unit);
     		var snugSisterSize = sisterSnug(yourSize);
@@ -258,36 +242,11 @@
     		$('#testResults').prepend(row);
     	}); 		
 
-	//Initialize sliders
-		//underbust
-	    var underWidget = $( "#underbustSlider" ).slider({
-	    	orientation: "horizontal",
-	      	value: $("#underbust").val(),
-	      	step: .5,
-	      	//Deafult min and max in inches
-	      	min: braSizes[0].bandUS-1,
-	      	max: braSizes[braSizes.length-1].bandUS+.5,
-	      	slide: function(event,ui){
-	      		$("#underbust").val(ui.value);
-  			}
-    	});
-		//overbust
-		var overWidget = $( "#overbustSlider" ).slider({
-			orientation: "horizontal",
-	      	value: $("#overbust").val(),
-	      	step: .5,
-	      	//Deafult min and max in inches
-	      	min: braSizes[0].bandUS + braSizes[0].cupStart,
-	      	max: braSizes[braSizes.length-1].bandUS + braSizes[braSizes.length-1].cupStop,
-	      	slide: function(event,ui){
-	      		$("#overbust").val(ui.value);
-	      	},
-    	});
-		//Set min and max slider labels
-		$("#underbustSliderMin").text(underWidget.slider("option","min"));	
-		$("#underbustSliderMax").text(underWidget.slider("option","max"));	
-		$("#overbustSliderMin").text(overWidget.slider("option","min"));	
-		$("#overbustSliderMax").text(overWidget.slider("option","max"));	
+		//Set slider min and max
+		$("#underbustSlider").attr("min",braSizes[0].bandUS-1);	
+		$("#underbustSlider").attr("max",braSizes[braSizes.length-1].bandUS+.5);
+		$("#overbustSlider").attr("min",braSizes[0].bandUS + braSizes[0].cupStart);
+		$("#overbustSlider").attr("max",braSizes[braSizes.length-1].bandUS + braSizes[braSizes.length-1].cupStop);
 	
 	//Set slider values with input fields
 		$('#underbust').change(function(){
@@ -301,7 +260,7 @@
 	
 
 		//Switch radio buttons name="units" when labels clicked
-		$("label[for='in']").click(function(){
+		$("input[value='in'], label[for='in']").click(function(){
 			//remove checked from "cm"
 			$("input[value='cm']").prop('checked', false);
 			//check "in"
@@ -309,7 +268,7 @@
 			//switch UI
 			switchUI("cm","in");
 		});
-		$("label[for='cm']").click(function(){
+		$("input[value='cm'], label[for='cm']").click(function(){
 			//remove checked from "in"
 			$("input[value='in']").prop('checked', false);
 			//check "in"
@@ -318,12 +277,15 @@
 			switchUI("in","cm");
 		});
 
+
 	//>>> End of document.ready()	
 	});
 
 	</script>
-	<link type="text/css" rel="stylesheet" href="style.css">
+	<!--link type="text/css" rel="stylesheet" href="style.css"-->
   	<link href='http://fonts.googleapis.com/css?family=Lato:300, 400,700|Playfair+Display:400,900,400italic,900italic' rel='stylesheet' type='text/css'>
+  	<style type="text/css">
+  	</style>
 </head>
 <body>
 	<header>
@@ -337,19 +299,33 @@
 			<input type="radio" name="units" value="in" checked><label for="in">in</label>
 			<input type="radio" name="units" value="cm" id="metric"><label for="cm">cm</label>
 		</div>
-		    <input type="range" name="slider-s" id="slider-s" value="25" min="0" max="100" data-highlight="true">
+		
+		<!--form>
+		    <label for="units">Flip toggle switch checkbox:</label>
+		    <input type="checkbox" data-role="flipswitch" name="units" id="units" data-on-text="IN" data-off-text="CM" data-wrapper-class="custom-label-flipswitch" checked>
+		</form-->
 
 		<div class="measure span_6_of_12 col">
 			<h2>your underbust</h2>
 			<p>Measure your chest just under your breasts. Remeber the tape must lie flat on your chest horizontally to the ground.</p>
-			<input type="number" step="1" value="31" id="underbust"/><br>
-			<span id="underbustSliderMin">min</span><div id="underbustSlider" class="slider"></div><span id="underbustSliderMax">max</span>
+				<!--input type="number" step="1" value="31" id="underbust"/><br>
+				<span id="underbustSliderMin">min</span>
+				<div id="underbustSlider" class="slider"></div>
+				<span id="underbustSliderMax">max</span-->
+			<form>
+				<label for="underbustSlider">Underbust</label>
+    			<input type="range" name="underbustSlider" id="underbustSlider" data-highlight="true" min="0" max="100" value="31" step=".5">	
+			</form>
 		</div>
 		<div class="measure span_6_of_12 col">
 			<h2>your overbust</h2>
 			<p>Now wrap the tape around the fullest part of your chest and measure your overbust.</p> 
-			<input type="number" step="1" value="41" id="overbust" /><br>
-			<span id="overbustSliderMin">min</span><div id="overbustSlider" class="slider"></div><span id="overbustSliderMax">min</span>
+			<!--input type="number" step="1" value="41" id="overbust" /><br>
+			<span id="overbustSliderMin">min</span><div id="overbustSlider" class="slider"></div><span id="overbustSliderMax">min</span-->
+			<form>
+				<label for="overbustSlider">Underbust</label>
+    			<input type="range" name="overbustSlider" id="overbustSlider" data-highlight="true" min="0" max="100" value="41" step=".5">		
+			</form>
 		</div>	
 
 		<div id="button">
