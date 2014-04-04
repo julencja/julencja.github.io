@@ -263,16 +263,24 @@
 		$("input[value='in'], label[for='in']").click(function(){
 			//remove checked from "cm"
 			$("input[value='cm']").prop('checked', false);
+			//remove highlight from cm label
+			$("label[for='cm']").removeClass('highlighted');
 			//check "in"
-			$("input[value='in'").prop('checked',true);
+			$("input[value='in']").prop('checked',true);
+			//add highlight to in label
+			$(this).addClass('highlighted');
 			//switch UI
 			switchUI("cm","in");
 		});
 		$("input[value='cm'], label[for='cm']").click(function(){
 			//remove checked from "in"
 			$("input[value='in']").prop('checked', false);
+			//remove highlight from "in" label
+			$("label[for='in']").removeClass('highlighted');
 			//check "in"
 			$("input[value='cm'").prop('checked',true);
+			//add highlight to "cm" label
+			$(this).addClass("highlighted");
 			//switch UI
 			switchUI("in","cm");
 		});
@@ -285,6 +293,49 @@
 	<!--link type="text/css" rel="stylesheet" href="style.css"-->
   	<link href='http://fonts.googleapis.com/css?family=Lato:300, 400,700|Playfair+Display:400,900,400italic,900italic' rel='stylesheet' type='text/css'>
   	<style type="text/css">
+  	.wrapper{
+  		width: 600px;
+  		background: #fff;
+  		margin: 0 auto;
+  		padding: 20px;
+  		text-align: center;
+  	}
+
+  	#units{
+  		background: red;
+  		width: 80px; 
+  		margin: 0 auto;
+  	}
+  	#units input[type=radio] {
+		display: none;
+	}
+
+	#units label {
+		float: left;
+		display: inline-block;
+		cursor: pointer;
+	    width: 25px;
+		height: 25px;
+		border: 2px solid #C9C9C9;
+		border-radius: 50%;	
+		margin: 5px;
+		color: #C9C9C9;
+		text-align: center;
+		font-variant: small-caps; 
+	}
+	#units label:hover {
+	color: #28B1B7;
+	border: 2px solid #28B1B7;
+	}
+	
+	#units label.highlighted {
+	color: #28B1B7;
+	border: 2px solid #28B1B7;
+	}
+
+	.col {
+		float: left;
+	}
   	</style>
 </head>
 <body>
@@ -296,45 +347,34 @@
 	</header>
 	<div class="wrapper">
 		<div id="units">
-			<input type="radio" name="units" value="in" checked><label for="in">in</label>
+			<input type="radio" name="units" value="in" checked><label for="in" class="highlighted">in</label>
 			<input type="radio" name="units" value="cm" id="metric"><label for="cm">cm</label>
 		</div>
-		
-		<!--form>
-		    <label for="units">Flip toggle switch checkbox:</label>
-		    <input type="checkbox" data-role="flipswitch" name="units" id="units" data-on-text="IN" data-off-text="CM" data-wrapper-class="custom-label-flipswitch" checked>
-		</form-->
 
 		<div class="measure span_6_of_12 col">
-			<h2>your underbust</h2>
+			<h2>Your underbust</h2>
 			<p>Measure your chest just under your breasts. Remeber the tape must lie flat on your chest horizontally to the ground.</p>
-				<!--input type="number" step="1" value="31" id="underbust"/><br>
-				<span id="underbustSliderMin">min</span>
-				<div id="underbustSlider" class="slider"></div>
-				<span id="underbustSliderMax">max</span-->
 			<form>
-				<label for="underbustSlider">Underbust</label>
     			<input type="range" name="underbustSlider" id="underbustSlider" data-highlight="true" min="0" max="100" value="31" step=".5">	
 			</form>
 		</div>
 		<div class="measure span_6_of_12 col">
-			<h2>your overbust</h2>
+			<h2>Your overbust</h2>
 			<p>Now wrap the tape around the fullest part of your chest and measure your overbust.</p> 
-			<!--input type="number" step="1" value="41" id="overbust" /><br>
-			<span id="overbustSliderMin">min</span><div id="overbustSlider" class="slider"></div><span id="overbustSliderMax">min</span-->
 			<form>
-				<label for="overbustSlider">Underbust</label>
     			<input type="range" name="overbustSlider" id="overbustSlider" data-highlight="true" min="0" max="100" value="41" step=".5">		
 			</form>
 		</div>	
 
 		<div id="button">
-			<button id="calculateSize">check your size</button>
+			<button id="calculateSize">check your size </button>
 		</div>
-	<div id="result">
-		<h2>we recommend sizes:<br> 
-			comfy: <span id="comfy" class="sizeSugestion">?</span> | snug: <span id="snug" class="sizeSugestion">?</span><h2>
-	</div>
+		
+		<div id="result">
+			<h2>we recommend sizes:<br> 
+				comfy: <span id="comfy" class="sizeSugestion">?</span> | snug: <span id="snug" class="sizeSugestion">?</span><h2>
+		</div>
+		<hr>
 	<small>Test results table</small>
 	<table id="testResults">
 		<thead>
