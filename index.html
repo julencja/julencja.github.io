@@ -8,6 +8,8 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
+	<link rel="stylesheet" href="wf-mobile.css" />
+  	<link rel="stylesheet" href="jquery.mobile.icons.min.css" />
 	<script type="text/javascript">
 	// braSizes holds 
 	var braSizes = [
@@ -302,16 +304,16 @@
   	}
 
   	#units{
-  		background: red;
+  		
   		width: 80px; 
   		margin: 0 auto;
   	}
   	#units input[type=radio] {
-		display: none;
+		display: ;
 	}
 
 	#units label {
-		float: left;
+		
 		display: inline-block;
 		cursor: pointer;
 	    width: 25px;
@@ -339,13 +341,11 @@
   	</style>
 </head>
 <body>
-	<header>
-		<div class="wrapper">
-			<img src="logo.png">
-			<h1>Bra Size Calculator</h1>
-		</div>
-	</header>
 	<div class="wrapper">
+		<header>
+			<img src="logo.png">
+			<h1>Bra Size Calculator</h1>	
+		</header>
 		<div id="units">
 			<input type="radio" name="units" value="in" checked><label for="in" class="highlighted">in</label>
 			<input type="radio" name="units" value="cm" id="metric"><label for="cm">cm</label>
