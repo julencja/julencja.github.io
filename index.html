@@ -2,10 +2,9 @@
 <html>
 <head>	
 	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Size calculator</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
 	<link rel="stylesheet" href="wf-mobile.css" />
@@ -156,7 +155,7 @@
 		var bandSize = calculateBand(underbust,unit);
 		var cupSize =  calculateCup(underbust, overbust, unit);
 		//check if the size belongs to the universum of braSizes
-		if (sizeAvailable(bandSize, cupSize)) {return [bandSize,cupSize]} else{return "noSize"};
+		if (sizeAvailable(bandSize, cupSize)) {return [bandSize,cupSize]} else{return false};
 	};
 
 	//find a sister size which feels loser
@@ -167,7 +166,7 @@
 		var cupIndex = cups.indexOf(cupSize)-1;
 		var sisterCup = cups[cupIndex];
 		//check if the size in braSizes
-		if (sizeAvailable(sisterBand,sisterCup)) {return([sisterBand,sisterCup])} else{return "noSister"};
+		if (sizeAvailable(sisterBand,sisterCup)) {return([sisterBand,sisterCup])} else{return false};
 	};
 
 	//find a sister size which feels more snug
@@ -178,7 +177,7 @@
 		var cupIndex = cups.indexOf(cupSize)+1;
 		var sisterCup = cups[cupIndex];
 		//check if the size in braSizes
-		if (sizeAvailable(sisterBand,sisterCup)) {return([sisterBand,sisterCup])} else{return "noSister"};
+		if (sizeAvailable(sisterBand,sisterCup)) {return([sisterBand,sisterCup])} else{return false};
 	};
 
 	//determine unit from #units
@@ -228,16 +227,31 @@
 	$( document ).ready(function() {
 	//Calculate size from input    	 		
     	$('#calculateSize').click(function(){
-    		//pass unit from checkbox
     		var under = parseInt($('#underbustSlider').val()); 
     		var over = parseInt($('#overbustSlider').val());
     		var unit = whatUnit();
     		var yourSize = calculateSize(under,over,unit);
     		var snugSisterSize = sisterSnug(yourSize);
     		var looseSisterSize = sisterLoose(yourSize);
+    		//Set display text 
+    		if (yourSize) {
+    			$("#comfy span").text(yourSize[0]+yourSize[1]);	
+    		} else{
+    			$("#comfy span").text("Sorry, we don't have your size:(");
+    		};
     		//Display Snug and Comfy recommendations
-    		$("#comfy").text(yourSize[0]+yourSize[1]);
-    		$("#snug").text(snugSisterSize[0]+snugSisterSize[1]);
+    		if (snugSisterSize) {$("#snug span").text(snugSisterSize[0]+snugSisterSize[1]);
+    		} else{
+    			$("#snug span").text("Sorry, we can't recommend a snug size");
+    		};
+    		//Highlight snug if cup >=G, else highlight comfy 
+    		if (cups.indexOf(yourSize[1])>5) {
+    			$("#snug").addClass('highlighted');
+    		} else{
+    			$("#comfy").addClass('highlighted');
+    		};
+    		//Remove inactive class from size recommendations
+    		$("#result").removeClass('inactive');
     		//Add results to test Table
     		var row = $('<tr></tr>');
     		row.append("<td>"+unit+"</td><td>"+under+"</td><td>"+over+"</td><td>"+yourSize[0]+yourSize[1]+"</td><td>"+snugSisterSize[0]+snugSisterSize[1]+"</td><td>"+looseSisterSize[0]+looseSisterSize[1]+"</td>");
@@ -250,6 +264,13 @@
 		$("#overbustSlider").attr("min",braSizes[0].bandUS + braSizes[0].cupStart);
 		$("#overbustSlider").attr("max",braSizes[braSizes.length-1].bandUS + braSizes[braSizes.length-1].cupStop);
 	
+		//Grey-out size recommendations when sliders change
+		$( "#underbustSlider, #overbustSlider" ).bind( "change", function(event, ui) {
+			//grey out size recommendations
+  			$('#result').addClass('inactive');
+  			//remove highlighted class from sizeTips
+  			$('.sizeTip').removeClass('highlighted');
+		});
 
 		//Switch UI between in/cm
 		$("#in").click(function(){
@@ -287,10 +308,16 @@
   	<link href='http://fonts.googleapis.com/css?family=Lato:300, 400,700|Playfair+Display:400,900,400italic,900italic' rel='stylesheet' type='text/css'>
   	<style type="text/css">
   	body{
-  		font-size: 1.5em;
+  		font-size: 1em;
+  		text-shadow: none !important;
+  	}
+
+  	img.logo {
+  		width: 100px;
   	}
   	.wrapper{
-  		width: 100%;
+  		width: 600px;
+  		padding: 40px 20px;
   		background: #fff;
   		margin: 0 auto;
   		text-align: center;
@@ -300,14 +327,42 @@
 		float: left;
 		width: 100%;
 	}
+
+	.inactive {
+		opacity: .3;
+	}
+
+	.sizeTip.highlighted {
+		background:  rgba(40, 177, 183, .2);
+	}
+
+	.sizeTip {
+		display: inline-table;
+		width: 49%;
+		border-radius: 5px;
+		background: #f9f9f9;
+		padding: 10px 0;
+	}
+
+	.sizeTip h3 {
+		color: #28B1B7;
+	}
+	.sizeTip span {
+		display: block;
+		font-size: 130%;
+		font-weight: bold;
+
+	}
+
+	#testResults {display: none;}
   	</style>
-  	<meta name="viewport" content="width=device-width; initial-scale=1.0">
+
 </head>
 <body>
 	<div class="wrapper">
 		<header>
-			<img src="logo.png">
-			<h1>Bra Size Calculator</h1>	
+			<a href="http://wellfitting.com"><img src="logo.png" class="logo"></a>
+			<h1>Bra Size Calculator v2.0</h1>	
 		</header>
 		<form id="units">
 			<fieldset data-role="controlgroup" data-type="horizontal">
@@ -337,15 +392,25 @@
 		</div>	
 
 		<div id="button">
-			<button id="calculateSize">check your size </button>
+			<button id="calculateSize">Check your size </button>
 		</div>
 		
-		<div id="result">
-			<h2>we recommend sizes:<br> 
-				comfy: <span id="comfy" class="sizeSugestion">?</span> | snug: <span id="snug" class="sizeSugestion">?</span><h2>
+		<div id="result" class="inactive">
+			<h2>Recommended sizes:</h2> 
+			<div class="sizeTip" id="comfy">
+				<h3>Comfy fit:</h3> 
+				<span class="sizeSugestion"></span>
+				<small>We recommend this size as a good bra fitting starting point.</small>
+			</div>
+			<div class="sizeTip" id="snug">
+	 			<h3>Snug fit:</h3> 
+	 			<span class="sizeSugestion"></span>
+	 			<small>We recommend this as a good bra fitting starting point if your cup size is G and more.</small>
+			</div>
+			
 		</div>
-		<hr>
-	<small>Test results table</small>
+
+	
 	<table id="testResults">
 		<thead>
 			<td>Unit</td>
