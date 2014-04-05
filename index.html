@@ -237,12 +237,12 @@
     		if (yourSize) {
     			$("#comfy span").text(yourSize[0]+yourSize[1]);	
     		} else{
-    			$("#comfy span").text("Sorry, we don't have your size:(");
+    			$("#comfy span").text("Sorry, we can't recommend :(");
     		};
     		//Display Snug and Comfy recommendations
     		if (snugSisterSize) {$("#snug span").text(snugSisterSize[0]+snugSisterSize[1]);
     		} else{
-    			$("#snug span").text("Sorry, we can't recommend a snug size");
+    			$("#snug span").text("Sorry, we can't recommend :(");
     		};
     		//Highlight snug if cup >=G, else highlight comfy 
     		if (cups.indexOf(yourSize[1])>5) {
@@ -355,6 +355,22 @@
 	}
 
 	#testResults {display: none;}
+
+	/* First breakpoint at 576px */
+/* Inherits mobile styles, but floats containers to make columns */
+@media all and (min-width: 36em){
+	.wrapper {
+		width: 36em !important;
+	}
+}
+
+/* Second breakpoint at 800px */
+/* Adjusts column proportions, tweaks base H1 */
+@media all and (min-width: 50em){
+	.wrapper {
+		width: 50em !important;
+	}
+}
   	</style>
 
 </head>
@@ -407,9 +423,8 @@
 	 			<span class="sizeSugestion"></span>
 	 			<small>We recommend this as a good bra fitting starting point if your cup size is G and more.</small>
 			</div>
-			
 		</div>
-	
+		<a href="http://wellfitting.com" class="ui-btn">Shop your size at Wellfitting</a>
 		<table id="testResults">
 			<thead>
 				<td>Unit</td>
