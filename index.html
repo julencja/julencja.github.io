@@ -2,7 +2,7 @@
 <html>
 <head>	
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width; initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<title>Size calculator</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
@@ -316,7 +316,7 @@
   		width: 100px;
   	}
   	.wrapper{
-  		width: 600px;
+  		width: 600px !important;
   		padding: 40px 20px;
   		background: #fff;
   		margin: 0 auto;
@@ -359,7 +359,7 @@
 
 </head>
 <body>
-	<div class="wrapper">
+	<div class="wrapper" data-role="page">
 		<header>
 			<a href="http://wellfitting.com"><img src="logo.png" class="logo"></a>
 			<h1>Bra Size Calculator v2.0</h1>	
@@ -409,20 +409,19 @@
 			</div>
 			
 		</div>
-
 	
-	<table id="testResults">
-		<thead>
-			<td>Unit</td>
-			<td>Underbust</td>
-			<td>Overbust</td>
-			<td>Comfy size</td>
-			<td>Snug sister</td>
-			<td>Loose sister</td>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-</div>
+		<table id="testResults">
+			<thead>
+				<td>Unit</td>
+				<td>Underbust</td>
+				<td>Overbust</td>
+				<td>Comfy size</td>
+				<td>Snug sister</td>
+				<td>Loose sister</td>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>
