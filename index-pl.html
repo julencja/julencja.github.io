@@ -270,10 +270,10 @@
     	}); 		
 
 		//Set slider min and max
-		$("#underbustSlider").attr("min",braSizes[0].bandUS-1);	
+		/*$("#underbustSlider").attr("min",braSizes[0].bandUS-1);	
 		$("#underbustSlider").attr("max",braSizes[braSizes.length-1].bandUS+.5);
 		$("#overbustSlider").attr("min",braSizes[0].bandUS + braSizes[0].cupStart);
-		$("#overbustSlider").attr("max",braSizes[braSizes.length-1].bandUS + braSizes[braSizes.length-1].cupStop);
+		$("#overbustSlider").attr("max",braSizes[braSizes.length-1].bandUS + braSizes[braSizes.length-1].cupStop);*/
 	
 		//Grey-out size recommendations when sliders change
 		$( "#underbustSlider, #overbustSlider" ).bind( "change", function(event, ui) {
@@ -397,10 +397,10 @@
 		<form id="units">
 			<fieldset data-role="controlgroup" data-type="horizontal">
 				
-        		<input type="radio" name="units" id="in" value="on" checked="checked">
+        		<input type="radio" name="units" id="in" value="off" >
         		<label for="in">In</label>
         		
-        		<input type="radio" name="units" id="cm" value="off">
+        		<input type="radio" name="units" id="cm" value="on" checked="checked">
         		<label for="cm">Cm</label>
 
     		</fieldset>
@@ -410,14 +410,14 @@
 			<h2>Your underbust</h2>
 			<p>Measure your chest just under your breasts. Remeber the tape must lie flat on your chest horizontally to the ground.</p>
 			<form>
-    			<input type="range" name="underbustSlider" id="underbustSlider" data-highlight="true" min="0" max="100" value="31" step=".5">	
+    			<input type="range" name="underbustSlider" id="underbustSlider" data-highlight="true" min="50" max="120" value="78" step=".5">	
 			</form>
 		</div>
 		<div class="col">
 			<h2>Your overbust</h2>
 			<p>Now wrap the tape around the fullest part of your chest and measure your overbust.</p> 
 			<form>
-    			<input type="range" name="overbustSlider" id="overbustSlider" data-highlight="true" min="0" max="100" value="41" step=".5">		
+    			<input type="range" name="overbustSlider" id="overbustSlider" data-highlight="true" min="55" max="150" value="90" step=".5">		
 			</form>
 		</div>	
 
