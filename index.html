@@ -160,7 +160,7 @@
 
 	//find a sister size which feels loser
 	//assert typeOf(braSize) == array
-	function sisterLoose (braSize) {
+	function sisterLoose(braSize) {
 		var sisterBand = braSize[0]+2;
 		var cupSize = braSize[1];
 		var cupIndex = cups.indexOf(cupSize)-1;
@@ -171,7 +171,7 @@
 
 	//find a sister size which feels more snug
 	//assert typeOf(braSize) == array
-	function sisterSnug (braSize){
+	function sisterSnug(braSize) {
 		var sisterBand = braSize[0]-2;
 		var cupSize = braSize[1];
 		var cupIndex = cups.indexOf(cupSize)+1;
@@ -180,6 +180,16 @@
 		if (sizeAvailable(sisterBand,sisterCup)) {return([sisterBand,sisterCup])} else{return false};
 	};
 
+	//convert size from US to EU
+	function convert2EU(braSize){
+		var bandUS2convert = braSize[0];
+		for (var i = 0; i < braSizes.length; i++) {
+			if (braSizes[i].bandUS === bandUS2convert) {
+				var bandEU = braSizes[i].bandEU; 
+				return([bandEU,braSize[1]]);
+			};
+		};
+	};
 	//determine unit from #units
 	function whatUnit(){
 		if ($('#in').is(':checked')) {return "in"} else { return "cm"};
@@ -230,32 +240,33 @@
     		var under = parseInt($('#underbustSlider').val()); 
     		var over = parseInt($('#overbustSlider').val());
     		var unit = whatUnit();
-    		var yourSize = calculateSize(under,over,unit);
-    		var snugSisterSize = sisterSnug(yourSize);
-    		var looseSisterSize = sisterLoose(yourSize);
-    		//Set display text 
-    		if (yourSize) {
-    			$("#comfy span").text(yourSize[0]+yourSize[1]);	
+    		var yourSizeUS = calculateSize(under,over,unit);
+    		var yourSizeEU = convert2EU(yourSizeUS);
+    		var snugSisterSizeUS = sisterSnug(yourSizeUS);
+    		var snugSisterSizeEU = convert2EU(snugSisterSizeUS);
+    		var looseSisterSize = sisterLoose(yourSizeUS);
+    		//Set Comfy text 
+    		if (yourSizeUS) {
+    			$("#comfy .sizeSugestionUS").text(yourSizeUS[0]+yourSizeUS[1]);	
+    			$("#comfy .sizeSugestionEU").text(yourSizeEU[0]+yourSizeEU[1]);	
     		} else{
     			$("#comfy span").text("Sorry, we can't recommend :(");
     		};
-    		//Display Snug and Comfy recommendations
-    		if (snugSisterSize) {$("#snug span").text(snugSisterSize[0]+snugSisterSize[1]);
+    		//Set Snug text
+    		if (snugSisterSizeUS) {
+    			$("#snug .sizeSugestionUS").text(snugSisterSizeUS[0]+snugSisterSizeUS[1]);
+    			$("#snug .sizeSugestionEU").text(snugSisterSizeEU[0]+snugSisterSizeEU[1]);
     		} else{
     			$("#snug span").text("Sorry, we can't recommend :(");
     		};
     		//Highlight snug if cup >=G, else highlight comfy 
-    		if (cups.indexOf(yourSize[1])>5) {
+    		if (cups.indexOf(yourSizeUS[1])>5) {
     			$("#snug").addClass('highlighted');
     		} else{
     			$("#comfy").addClass('highlighted');
     		};
     		//Remove inactive class from size recommendations
     		$("#result").removeClass('inactive');
-    		//Add results to test Table
-    		var row = $('<tr></tr>');
-    		row.append("<td>"+unit+"</td><td>"+under+"</td><td>"+over+"</td><td>"+yourSize[0]+yourSize[1]+"</td><td>"+snugSisterSize[0]+snugSisterSize[1]+"</td><td>"+looseSisterSize[0]+looseSisterSize[1]+"</td>");
-    		$('#testResults').prepend(row);
     	}); 		
 
 		//Set slider min and max
@@ -415,28 +426,18 @@
 			<h2>Recommended sizes:</h2> 
 			<div class="sizeTip" id="comfy">
 				<h3>Comfy fit:</h3> 
-				<span class="sizeSugestion"></span>
+				<span class="sizeSugestionUS"></span>
+				<span class="sizeSugestionEU"></span>
 				<small>We recommend this size as a good bra fitting starting point.</small>
 			</div>
 			<div class="sizeTip" id="snug">
 	 			<h3>Snug fit:</h3> 
-	 			<span class="sizeSugestion"></span>
+	 			<span class="sizeSugestionUS"></span>
+	 			<span class="sizeSugestionEU"></span>
 	 			<small>We recommend this as a good bra fitting starting point if your cup size is G and more.</small>
 			</div>
 		</div>
 		<a href="http://wellfitting.com" class="ui-btn">Shop your size at Wellfitting</a>
-		<table id="testResults">
-			<thead>
-				<td>Unit</td>
-				<td>Underbust</td>
-				<td>Overbust</td>
-				<td>Comfy size</td>
-				<td>Snug sister</td>
-				<td>Loose sister</td>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
 	</div>
 </body>
 </html>
