@@ -109,7 +109,20 @@
 			};
 		};		
 	};
-
+	
+	function calculateCup2(underbust, overbust, unit){
+			if (unit === "in") {
+				//convert in to cm, 1 in = 2.54 cm
+				var underbust = underbust * 2.54;
+				var overbust = overbust * 2.54;
+			};
+			var difference = Math.round(overbust - underbust);
+			//assuming cup A starts at 6cm difference
+			if (difference < 6) {return "noCup"} else{
+				var cupIndex =  Math.floor((difference-6)/2)
+				return cups[cupIndex];
+		};		
+	};
 	//assert underbust type of number, unit in ["cm","in"]
 	function calculateBand(underbust, unit){
 		if (unit === "in") {
@@ -153,7 +166,7 @@
 	//unit in ["cm","in"]
 	function calculateSize(underbust, overbust, unit){
 		var bandSize = calculateBand(underbust,unit);
-		var cupSize =  calculateCup(underbust, overbust, unit);
+		var cupSize =  calculateCup2(underbust, overbust, unit);
 		//check if the size belongs to the universum of braSizes
 		if (sizeAvailable(bandSize, cupSize)) {return [bandSize,cupSize]} else{return false};
 	};
